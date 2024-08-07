@@ -9,30 +9,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace GameStructure.GameStates
 {
     public class GameplayState : State
     {
-        private Texture2D _pokemon;
-        public Vector2 _position = new Vector2(0,0);
-        public Actor _actor;
-
+        SaveFile loadfile;
+        List<Actor> actorss;
         public GameplayState(GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
         }
 
         public override void Initialize()
         {
-            _actor = new Actor() { name = "moveable", position = _position, pathtotexture = "phanpy"};
+            loadfile = XMLManager.Load<SaveFile>("Content/savedata.sav");
+            actorss = loadfile.Actors.ToList();          
         }
 
         public override void LoadContent(ContentManager content)
         {
-            _pokemon = content.Load<Texture2D>(_actor.pathtotexture);
+            foreach (Actor actor in actorss)
+            {
+                actor.loadContent(content);
+            }
         }
 
         public override void UnloadContent()
@@ -41,10 +45,9 @@ namespace GameStructure.GameStates
 
         public override void Update(GameTime gameTime)
         {
-            _actor.Update(gameTime);
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            foreach (Actor actor in actorss)
             {
-                XMLManager.Save(Globals.PATH + "phanpy.xml", _actor);
+                actor.Update(gameTime);
             }
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -52,7 +55,10 @@ namespace GameStructure.GameStates
             _graphicsDevice.Clear(Color.MistyRose);
 
             spriteBatch.Begin();
-            _actor.Draw(spriteBatch, _pokemon);
+            foreach (Actor actor in actorss)
+            {
+                actor.Draw(spriteBatch);
+            }
             spriteBatch.End();
         }
 

@@ -1,5 +1,6 @@
 ﻿using GameStructure.Managers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -19,13 +20,21 @@ namespace GameStructure
         public string name {  get; set; }
         public string pathtotexture { get; set; }
         public Vector2 position { get; set; }
+
         private Vector2 newpos;
         private float Velocity = 3.0f;
+        private Texture2D texture;
+
         public Actor() 
         {
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        public void loadContent(ContentManager contentManager)
+        {
+            texture = contentManager.Load<Texture2D>(pathtotexture);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, Color.White);
         }
