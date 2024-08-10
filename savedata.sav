@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SaveFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Actors>
+    <Sprite>
+      <name>uno</name>
+      <pathtotexture>phanpy</pathtotexture>
+      <position>
+        <X>200</X>
+        <Y>100</Y>
+      </position>
+    </Sprite>
+	  <Sprite xsi:type="Player">
+      <name>dos</name>
+      <pathtotexture>swablu</pathtotexture>
+      <position>
+        <X>100</X>
+        <Y>200</Y>
+      </position>
+    </Sprite>
+  </Actors>
+</SaveFile>

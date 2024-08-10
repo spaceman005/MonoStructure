@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SaveFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Actors>
+    <Sprite>
+      <name>sprite1</name>
+      <pathtotexture>phanpy</pathtotexture>
+      <position>
+        <X>100</X>
+        <Y>10</Y>
+      </position>
+    </Sprite>
+    <Sprite>
+      <name>sprite2</name>
+      <pathtotexture>phanpy</pathtotexture>
+      <position>
+        <X>200</X>
+        <Y>100</Y>
+      </position>
+    </Sprite>
+    <Sprite xsi:type="Player">
+      <name>sprite3</name>
+      <pathtotexture>swablu</pathtotexture>
+      <position>
+        <X>10</X>
+        <Y>0</Y>
+      </position>
+    </Sprite>
+  </Actors>
+</SaveFile>
