@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStructure.UI
+namespace GameStructure
 {
     public abstract class Component
     {
         public abstract void Draw(SpriteBatch spriteBatch);
 
-        public abstract void Update(GameTime gameTime); 
+        public abstract void Update(GameTime gameTime);
     }
 }

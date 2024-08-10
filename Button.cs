@@ -7,36 +7,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GameStructure.UI
 {
     [Serializable]
     public class Button : Component
     {
-
         private MouseState currentMouse;
         private MouseState previousMouse;
         private bool isHovering;
-        private Texture2D texture;
-        private SpriteFont font;
 
-        public EventHandler Click;
+        public Vector2 position { get; set; }
         [XmlIgnore]
-        public bool isClicked {  get; private set; }
-        public Vector2 position {  get;  set; }
-        public Rectangle rectangle { get 
+        public Rectangle rectangle
+        {
+            get
             {
                 return new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             }
         }
         public string buttonText { get; set; }
 
+        [XmlIgnore]
+        public Texture2D texture;
+        [XmlIgnore]
+        public SpriteFont font;
+        [XmlIgnore]
+        public EventHandler Click;
+        [XmlIgnore]
+        public Color PenColor { get; set; }
+        [XmlIgnore]
+        public bool isClicked { get; private set; }
+
+
+        private Button()
+        {
+        }
         public Button(Texture2D _texture, SpriteFont _font)
         {
             texture = _texture;
             font = _font;
+            PenColor = Color.Black;
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             var color = Color.White;

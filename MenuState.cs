@@ -18,7 +18,7 @@ namespace GameStructure.GameStates
     {
         Texture2D buttontexture;
         SpriteFont spritefont;
-        Button game1;
+        Button button1;
         public MenuState(GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
         }
@@ -32,14 +32,11 @@ namespace GameStructure.GameStates
             buttontexture = content.Load<Texture2D>("buttontex");
             spritefont = content.Load<SpriteFont>("File");
 
-            game1 = new Button(buttontexture, spritefont) { buttonText = "textextext", position = new Vector2(300,250) };
+            button1 = XMLManager.Load<Button>($"Content/buttondata.xml");
+            button1.texture = buttontexture;
+            button1.font = spritefont;
 
-            game1.Click += game1_click;
-        }
-
-        private void game1_click(object sender, EventArgs e)
-        {
-            StateManager.Instance.AddScreen(new GameplayState(_graphicsDevice));
+            button1.Click += game1_click;
         }
 
         public override void UnloadContent()
@@ -47,15 +44,20 @@ namespace GameStructure.GameStates
         }
         public override void Update(GameTime gameTime)
         {
-            game1.Update(gameTime);
+            button1.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             _graphicsDevice.Clear(Color.Azure);
 
             spriteBatch.Begin();
-            game1.Draw(spriteBatch);
+            button1.Draw(spriteBatch);
             spriteBatch.End();
+        }
+
+        private void game1_click(object sender, EventArgs e)
+        {
+            StateManager.Instance.AddScreen(new GameplayState(_graphicsDevice));
         }
     }
 }

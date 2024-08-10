@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameStructure.GameStates;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStructure.GameStates
+namespace GameStructure.Managers
 {
     public class StateManager
     {
@@ -45,7 +46,7 @@ namespace GameStructure.GameStates
                     _screens.Peek().LoadContent(_content);
                 }
             }
-            catch (Exception ex){ }
+            catch (Exception ex) { }
         }
 
         // Removes the top screen from the stack
@@ -58,7 +59,7 @@ namespace GameStructure.GameStates
                     var screen = _screens.Peek();
                     _screens.Pop();
                 }
-                catch (Exception ex){ }
+                catch (Exception ex) { }
             }
         }
         public void ClearScreens()
@@ -76,7 +77,7 @@ namespace GameStructure.GameStates
                 ClearScreens();
                 AddScreen(screen);
             }
-            catch (Exception ex){ }
+            catch (Exception ex) { }
         }
 
         public void Update(GameTime gameTime)
@@ -101,7 +102,7 @@ namespace GameStructure.GameStates
                     _screens.Peek().Draw(spriteBatch);
                 }
             }
-            catch (Exception ex){ }
+            catch (Exception ex) { }
         }
 
         public void UnloadContent()
