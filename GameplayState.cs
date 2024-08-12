@@ -20,29 +20,29 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Vector3 = Microsoft.Xna.Framework.Vector3;
 
 namespace GameStructure.GameStates
 {
     public class GameplayState : State
     {
-        public SaveFile saveFile;
-        public List<Sprite> spritestoadd;
+        public Camera camera;
+        private Cylinder cylinder;
         public GameplayState(GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
         }
 
         public override void Initialize()
         {
-            saveFile = XMLManager.Load<SaveFile>(Globals.PATH+"savedata1.sav");
-            spritestoadd = saveFile.Actors;
+            camera = new Camera();
+            File.WriteAllText(Globals.PATH+"camera.xml", camera.Serialize());
         }
 
         public override void LoadContent(ContentManager content)
         {
-            foreach (Sprite s in spritestoadd)
-            {
-                s.LoadContent(content);
-            }
+            cylinder = new Cylinder();
+            cylinder.LoadContent(content, "Models/PlaneBasic");
+            cylinder.Position = new Vector3(0,0,0);
         }
 
 
@@ -52,39 +52,18 @@ namespace GameStructure.GameStates
 
         public override void Update(GameTime gameTime)
         {
-            foreach (Sprite s in spritestoadd)
-            {
-                s.Update(gameTime);
-            }
+            float rotation = 0.0f;
+            Vector3 position = Vector3.Zero;
+            camera.Update(rotation, position, _graphicsDevice.Viewport.AspectRatio);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             _graphicsDevice.Clear(Color.MistyRose);
-
             spriteBatch.Begin();
-            foreach (Sprite sprite in spritestoadd)
-            {
-                sprite.Draw(spriteBatch);
-            }
+
+            cylinder.Draw(camera.ViewMatrix, camera.ProjectionMatrix);
 
             spriteBatch.End();
-        }
-
-        public void generateFile()
-        {
-            spritestoadd = new List<Sprite>()
-            {
-                new Sprite(){ name = "sprite1", pathtotexture = "phanpy", position = new Vector2(100,010)},
-                new Sprite(){ name = "sprite2", pathtotexture = "phanpy", position = new Vector2(200,100)},
-                new Player(){name = "sprite3", pathtotexture = "swablu", position = new Vector2(10,0)}
-
-            };
-            //players = new List<Player>()
-            //{
-            //    new Player(){name = "player", position = new Vector2(0,1), pathtotexture = "swablu"},
-            //};
-            saveFile = new SaveFile() { Actors = spritestoadd, Players = null};
-            XMLManager.Save($"Content/savedata1.sav", saveFile);
         }
     }
 }
