@@ -1,12 +1,11 @@
-﻿using GameStructure;
-using GameStructure.Managers;
+﻿using GameStructure.Managers;
 using GameStructure.Models;
 using GameStructure.UI;
+using GameStructure.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,22 +26,20 @@ namespace GameStructure.GameStates
     public class GameplayState : State
     {
         public Camera camera;
-        private Cylinder cylinder;
+        private RenderableGameObject cylinder;
         public GameplayState(GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
         }
 
         public override void Initialize()
         {
-            camera = new Camera();
-            File.WriteAllText(Globals.PATH+"camera.xml", camera.Serialize());
+            cylinder = XMLManager.Load<RenderableGameObject>("plane.xml");
+            camera = new Camera(cylinder);
         }
 
         public override void LoadContent(ContentManager content)
         {
-            cylinder = new Cylinder();
-            cylinder.LoadContent(content, "Models/PlaneBasic");
-            cylinder.Position = new Vector3(0,0,0);
+            cylinder.LoadContent(content);
         }
 
 
@@ -52,9 +49,7 @@ namespace GameStructure.GameStates
 
         public override void Update(GameTime gameTime)
         {
-            float rotation = 0.0f;
-            Vector3 position = Vector3.Zero;
-            camera.Update(rotation, position, _graphicsDevice.Viewport.AspectRatio);
+            camera.Update(_graphicsDevice.Viewport.AspectRatio);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

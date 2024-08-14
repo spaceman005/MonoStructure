@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace GameStructure.Models
+namespace GameStructure
 {
     public class Obj
     {
         public Vector2 Position { get; set; }
-        public Texture2D Texture {  get; set; }
+        public Texture2D Texture { get; set; }
         public string Name { get; set; }
 
         public Obj(Texture2D texture, Vector2 pos)
@@ -26,7 +26,7 @@ namespace GameStructure.Models
 
         public string Serialize()
         {
-            return new XElement("Foo",new XElement("Position", new XElement("X", Position.X),new XElement("Y", Position.Y)), new XElement("Name", "phanpy")).ToString();
+            return new XElement("Foo", new XElement("Position", new XElement("X", Position.X), new XElement("Y", Position.Y)), new XElement("Name", "phanpy")).ToString();
         }
 
         public static Obj Deserialize(string data, ContentManager content)

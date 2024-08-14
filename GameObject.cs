@@ -5,22 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace GameStructure.Models
 {
-    public class GameObject
+    public abstract class GameObject
     {
-        public Model Model { get; set; }
         public Vector3 Position { get; set; }
         public bool IsActive { get; set; }
+        [XmlIgnore]
         public BoundingSphere BoundingSphere { get; set; }
 
         public GameObject()
         {
-            Model = null;
-            Position = Vector3.Zero;
-            IsActive = false;
-            BoundingSphere = new BoundingSphere();
         }
     }
 }

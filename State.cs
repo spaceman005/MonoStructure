@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStructure.GameStates
+namespace GameStructure.Models
 {
     public abstract class State
     {
